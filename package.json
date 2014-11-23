@@ -1,6 +1,6 @@
 {
   "name": "featherweight-router",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple router for the featherweight project",
   "main": "index.js",
   "scripts": {
