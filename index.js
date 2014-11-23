@@ -1,8 +1,8 @@
 var ok = require('assert').ok;
 
 function validateHandler(handler) {
-  ok(!!handler.handle ==='undefined', 'all handlers should have a handle and test method')
-  ok(!!handler.test ==='undefined', 'all handlers should have a handle and test method')
+  ok(!!handler.handle, 'all handlers should have a handle and test method')
+  ok(!!handler.test, 'all handlers should have a handle and test method')
   return handler;
 }
 
