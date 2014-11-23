@@ -1,17 +1,17 @@
 var ok = require('assert').ok;
 
 function validateHandler(handler) {
-  ok(!!handler.handle, 'all handlers should have a handle and test method')
-  ok(!!handler.test, 'all handlers should have a handle and test method')
+  ok(!!handler.handle, 'all handlers should have a handle method');
+  ok(!!handler.route, 'all handlers should have a route method');
   return handler;
 }
 
 module.exports = function router(opts){
 
-  ok(!!opts, 'must have options')
-  ok(!!opts.socketEvents, 'must have options')
-  ok(!!opts.staticFiles, 'must have staticFiles option')
-  ok(!!opts.socketEvents, 'must have socketEvents options')
+  ok(!!opts, 'must have options');
+  ok(!!opts.socketEvents, 'must have options');
+  ok(!!opts.staticFiles, 'must have staticFiles option');
+  ok(!!opts.socketEvents, 'must have socketEvents options');
 
   var socketEvents = opts.socketEvents;
   var staticFiles = opts.staticFiles;
@@ -23,13 +23,13 @@ module.exports = function router(opts){
       var url = req.url;
       var method = req.method;
 
-      console.log('http method: ' + req.method + '\nurl: ' + url)
+      console.log('http method: ' + req.method + '\nurl: ' + url);
 
-      if (validateHandler(staticFiles).test(req, url))
+      if (validateHandler(staticFiles).route(req, url))
         return staticFiles.handle(req, res);
 
       var found = requestHandlers.some(function(handler){
-        if (validateHandler(handler).test(url, method)) {
+        if (validateHandler(handler).route(url, method)) {
           handler.handle(req, res);
           return true;
         }
@@ -44,7 +44,7 @@ module.exports = function router(opts){
     ws: function ws(stream) {
       stream.on('data', function(data) {
         socketEvents.forEach(function(event){
-          if (validateHandler(event).test(data))
+          if (validateHandler(event).route(data))
             events[i].handle(stream, data);
         });
       });
